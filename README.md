@@ -37,8 +37,6 @@ AI Code Reviewer is a serverless Python project designed to automatically review
 	- Zip the contents as required by AWS Lambda.
 3. Deploy to AWS Lambda via the AWS Console or CLI.
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 MIT License. See `LICENSE` file for details.
