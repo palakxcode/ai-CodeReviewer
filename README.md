@@ -1,4 +1,4 @@
-# AI-Powered GitHub Pull Request Reviewer
+# Automated GitHub Pull Request Reviewer
 
 ## 1. Project Overview
 
