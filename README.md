@@ -90,3 +90,50 @@ This project solves the problem by:
 
 ---
 
+## 8. Docker Usage (Local Development & Testing)
+
+### Purpose of Using Docker
+
+This project uses **Docker only for local development and testing**, not for production deployment.
+
+Since the application is built on **AWS Lambda (serverless)**, Docker is used to:
+- Simulate the AWS Lambda runtime locally
+- Test the Lambda function offline before deploying to AWS
+- Ensure environment consistency between local development and production
+- Validate webhook handling logic using mock GitHub Pull Request payloads
+
+The production system continues to run fully on **AWS Serverless infrastructure**.
+
+---
+
+### Docker Setup Overview
+
+Docker runs the Lambda function inside an official AWS Lambda base image.  
+The container exposes the Lambda Runtime API on a local port, allowing the function to be invoked via HTTP requests.
+
+**Key points:**
+- No UI or web server is exposed
+- Docker does not replace AWS Lambda
+- Docker is not used in production
+
+---
+
+### Files Used for Docker
+
+- `Dockerfile` – Defines the Lambda runtime environment  
+- `app.py` – Contains the Lambda handler logic  
+- `requirements.txt` – Python dependencies  
+- `.env` – Stores environment variables for local testing (not committed)
+
+---
+
+### Environment Variables
+
+Sensitive credentials are not hardcoded.
+
+For local testing, environment variables are loaded from a `.env` file:
+
+```env
+GITHUB_PAT=your_github_token
+GEMINI_API_KEY=your_gemini_api_key
+LOCAL_DOCKER=true
