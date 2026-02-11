@@ -155,9 +155,9 @@ For local testing, environment variables are loaded from a `.env` file:
 GITHUB_PAT=your_github_token
 GEMINI_API_KEY=your_gemini_api_key
 LOCAL_DOCKER=true
+```
 
-
-## 10. Branching Strategy
+## 9. Branching Strategy
 
 This repository follows a lightweight branching strategy tailored to the development of a serverless, AI-powered Pull Request review system.
 
