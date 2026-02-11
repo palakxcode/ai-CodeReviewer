@@ -2,10 +2,28 @@
 
 ## 1. Project Overview
 
-The **AI-Powered GitHub Pull Request Reviewer** is a serverless, event-driven system that automatically reviews GitHub Pull Requests using AI.  
-Whenever a Pull Request (PR) is opened or updated, the system analyzes the code changes and posts intelligent, human-like review feedback directly on the PR.
+This project is an event-driven, serverless system that automatically reviews GitHub Pull Requests using Artificial Intelligence.
 
-The solution leverages **AWS Serverless Architecture** (Lambda, API Gateway, SNS, CloudWatch) and **Google Gemini AI** to improve development velocity, consistency, and code quality in modern DevOps workflows.
+When a developer opens or updates a Pull Request in GitHub:
+
+1. GitHub sends a webhook event to an AWS API Gateway endpoint.
+2. API Gateway triggers an AWS Lambda function.
+3. The Lambda function:
+   - Extracts Pull Request details
+   - Fetches the code diff using the GitHub REST API
+   - Sends the code changes to Google Gemini AI for analysis
+4. Gemini analyzes the code for:
+   - Bugs
+   - Code quality issues
+   - Security concerns
+   - Performance improvements
+5. The AI-generated review is posted back as a comment directly on the Pull Request.
+6. Execution logs are recorded in AWS CloudWatch.
+7. Optional notifications are sent using AWS SNS.
+
+The entire system runs on AWS serverless infrastructure, ensuring scalability, cost efficiency, and minimal operational overhead.
+
+For development and testing purposes, Docker is used locally to simulate the AWS Lambda runtime before deploying to the cloud.
 
 ---
 
@@ -137,3 +155,43 @@ For local testing, environment variables are loaded from a `.env` file:
 GITHUB_PAT=your_github_token
 GEMINI_API_KEY=your_gemini_api_key
 LOCAL_DOCKER=true
+
+
+## 10. Branching Strategy
+
+This repository follows a lightweight branching strategy tailored to the development of a serverless, AI-powered Pull Request review system.
+
+### Branch Structure
+
+**1. main**
+
+- Represents the stable and production-ready version of the project.
+- Contains the deployed AWS serverless implementation.
+- Includes the `project/` directory, which contains Docker-based local development support.
+- Only validated and tested code is maintained here.
+
+**2. local-dev**
+
+- Used for local experimentation and development.
+- Primarily focused on Docker-based Lambda simulation and local testing.
+- Allows safe testing of environment variable configurations, webhook parsing, and AI logic without affecting the stable `main` branch.
+- Changes from `local-dev` are merged into `main` once verified.
+
+---
+
+### Development Workflow
+
+1. New features or experiments are developed in `local-dev`.
+2. Docker is used for local Lambda runtime simulation.
+3. Once functionality is verified, changes are merged into `main`.
+4. The `main` branch reflects the stable, production-aligned state of the system.
+
+---
+
+### Rationale
+
+This strategy provides:
+- Separation between stable and experimental code
+- Safe local Docker testing
+- Reduced risk of breaking production-ready logic
+- Clear organization between cloud deployment and local development
