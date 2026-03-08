@@ -201,7 +201,7 @@ This strategy provides:
 ## Software Design
 
 ### Architecture Diagram
-![System Architecture](./design/archDiag.drawio.png)
+![System Architecture](./design/arch%20diag/archDiag.drawio.png)
 
 The system uses an **event-driven serverless architecture** where GitHub Pull Request events trigger processing through **AWS API Gateway and AWS Lambda**. The Lambda function retrieves code changes via the **GitHub REST API**, sends them to **Google Gemini AI** for analysis, and posts the review back to the PR. **AWS CloudWatch, SNS, and Secrets Manager** handle logging, notifications, and secure credential management.
 
