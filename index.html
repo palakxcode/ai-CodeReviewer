@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered GitHub Pull Request Reviewer</title>
+<style>
+:root{--bg:#07090d;--panel:#0e1219;--panel2:#111722;--text:#f4f7fb;--muted:#9aa5b5;--line:#202735;--accent:#8b5cf6;--accent2:#22d3ee;--green:#34d399}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 80% 10%,#1b1230 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}
+nav{position:sticky;top:0;z-index:10;background:rgba(7,9,13,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.navin{height:68px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:800;letter-spacing:-.03em}.brand span{color:var(--accent2)}
+.links{display:flex;gap:24px;color:var(--muted);font-size:14px}.links a:hover{color:#fff}
+.hero{padding:110px 0 85px}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid #303848;border-radius:999px;color:#c6ceda;background:#0d1118;font-size:13px}
+.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 15px var(--green)}
+h1{font-size:clamp(44px,7vw,82px);line-height:.98;letter-spacing:-.065em;max-width:920px;margin:22px 0}
+.grad{background:linear-gradient(100deg,#fff 20%,#b9a2ff 58%,#58e6f5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:19px;color:var(--muted);max-width:720px}.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{padding:12px 18px;border-radius:10px;border:1px solid #303848;background:#111722;font-weight:700}.btn.primary{background:#f5f7fb;color:#080a0f;border-color:#f5f7fb}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:linear-gradient(180deg,#111722,#0c1017);border:1px solid var(--line);border-radius:16px;padding:23px}.stat{font-size:30px;font-weight:800}.label{color:var(--muted);font-size:14px}
+section{padding:75px 0}.section-head{max-width:700px;margin-bottom:32px}h2{font-size:38px;letter-spacing:-.04em;margin:0 0 10px}h3{margin:0 0 7px}.muted{color:var(--muted)}
+.arch{padding:28px;border:1px solid var(--line);border-radius:18px;background:#090d13;overflow:auto}
+.flow{display:flex;align-items:center;gap:12px;min-width:900px}.node{padding:18px 20px;border:1px solid #343c4b;border-radius:12px;background:#121824;text-align:center;min-width:130px;font-weight:700}.node small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.arrow{color:#667085;font-size:22px}
+.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.module{min-height:155px}.num{color:#8f78ff;font-size:13px;font-weight:800;letter-spacing:.08em}
+.stack{display:flex;flex-wrap:wrap;gap:10px}.tag{padding:9px 12px;border:1px solid #2a3240;background:#0e131b;border-radius:9px;color:#cdd5e1;font-size:14px}
+.timeline{border-left:1px solid #303848;padding-left:24px}.step{position:relative;margin:0 0 28px}.step:before{content:"";position:absolute;left:-30px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 5px #0b151b}
+.code{background:#05070a;border:1px solid var(--line);border-radius:16px;padding:22px;overflow:auto;color:#c9d1dc;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}
+footer{border-top:1px solid var(--line);padding:35px 0 55px;color:var(--muted);font-size:14px}
+@media(max-width:800px){.grid,.modules{grid-template-columns:1fr}.links{display:none}.hero{padding-top:75px}h2{font-size:31px}.flow{min-width:760px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap navin"><div class="brand">AI PR <span>REVIEWER</span></div><div class="links"><a href="#overview">Overview</a><a href="#architecture">Architecture</a><a href="#modules">Modules</a><a href="#stack">Stack</a></div></div></nav>
+
+<header class="hero wrap">
+<div class="eyebrow"><span class="dot"></span> AI × Serverless DevOps Automation</div>
+<h1>Automated code review,<br><span class="grad">inside every Pull Request.</span></h1>
+<p>An AI-powered GitHub Pull Request reviewer that combines GitHub webhooks, AWS serverless infrastructure, and Google Gemini to analyze code changes and return contextual review feedback automatically.</p>
+<div class="actions"><a class="btn primary" href="#architecture">Explore architecture</a><a class="btn" href="#workflow">See workflow</a></div>
+</header>
+
+<main>
+<section id="overview"><div class="wrap">
+<div class="section-head"><h2>Why this project?</h2><p class="muted">Manual code reviews can become a bottleneck as repositories and development teams scale. This system automates the first layer of review so developers receive fast, consistent feedback without waiting for a human reviewer.</p></div>
+<div class="grid">
+<div class="card"><div class="stat">AI</div><div class="label">Gemini-powered code analysis</div></div>
+<div class="card"><div class="stat">Serverless</div><div class="label">Event-driven AWS architecture</div></div>
+<div class="card"><div class="stat">GitHub-native</div><div class="label">Feedback posted directly to PRs</div></div>
+</div>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><h2>System architecture</h2><p class="muted">The pipeline is event-driven. A Pull Request triggers the system, AWS handles orchestration, Gemini performs the reasoning, and GitHub receives the result.</p></div>
+<div class="arch"><div class="flow">
+<div class="node">GitHub<small>Pull Request</small></div><div class="arrow">→</div>
+<div class="node">Webhook<small>Event</small></div><div class="arrow">→</div>
+<div class="node">API Gateway<small>HTTPS endpoint</small></div><div class="arrow">→</div>
+<div class="node">Lambda<small>Orchestration</small></div><div class="arrow">→</div>
+<div class="node">Gemini<small>AI review</small></div><div class="arrow">→</div>
+<div class="node">GitHub API<small>PR feedback</small></div>
+</div></div>
+</div></section>
+
+<section id="workflow"><div class="wrap">
+<div class="section-head"><h2>How it works</h2><p class="muted">From a new PR to an automated review in a sequence of serverless steps.</p></div>
+<div class="timeline">
+<div class="step"><h3>01 — Pull Request event</h3><p class="muted">A developer opens, reopens, or updates a Pull Request. GitHub sends the event payload to the configured webhook endpoint.</p></div>
+<div class="step"><h3>02 — Secure ingestion</h3><p class="muted">Amazon API Gateway receives the HTTP request and routes it to the Lambda function. The webhook flow is designed to validate the incoming event and protect credentials.</p></div>
+<div class="step"><h3>03 — Diff extraction</h3><p class="muted">Lambda identifies the repository and Pull Request, then retrieves the relevant code diff through the GitHub REST API.</p></div>
+<div class="step"><h3>04 — AI analysis</h3><p class="muted">The diff is sent to Google Gemini with a structured review request covering changes, bugs, code quality, security, performance, and improvements.</p></div>
+<div class="step"><h3>05 — Review delivery</h3><p class="muted">The generated review is posted back to the Pull Request using GitHub's API, giving developers feedback where the code is already being discussed.</p></div>
+<div class="step"><h3>06 — Notification & observability</h3><p class="muted">Amazon SNS can notify stakeholders when reviews complete or fail, while CloudWatch captures execution logs, errors, and monitoring data.</p></div>
+</div>
+</div></section>
+
+<section id="modules"><div class="wrap">
+<div class="section-head"><h2>Core modules</h2><p class="muted">The system is split into focused components so each responsibility can be operated and extended independently.</p></div>
+<div class="modules">
+<div class="card module"><div class="num">01</div><h3>GitHub Webhook Listener</h3><p class="muted">Receives PR events and validates the webhook request.</p></div>
+<div class="card module"><div class="num">02</div><h3>API Gateway</h3><p class="muted">Provides the serverless HTTPS entry point and routing layer.</p></div>
+<div class="card module"><div class="num">03</div><h3>Lambda Core</h3><p class="muted">Parses events, fetches diffs, invokes AI, and manages the response flow.</p></div>
+<div class="card module"><div class="num">04</div><h3>Gemini Review Engine</h3><p class="muted">Analyzes code for bugs, quality, security, performance, and best practices.</p></div>
+<div class="card module"><div class="num">05</div><h3>GitHub Commenter</h3><p class="muted">Publishes generated feedback back to the corresponding Pull Request.</p></div>
+<div class="card module"><div class="num">06</div><h3>SNS Notifications</h3><p class="muted">Sends review completion and error notifications.</p></div>
+<div class="card module"><div class="num">07</div><h3>CloudWatch Monitoring</h3><p class="muted">Provides logs, metrics, error visibility, and debugging support.</p></div>
+<div class="card module"><div class="num">08</div><h3>Security & Authentication</h3><p class="muted">Uses IAM and secure secret/token handling for cloud and API access.</p></div>
+<div class="card module"><div class="num">09</div><h3>Storage & Layers</h3><p class="muted">S3 supports Lambda layer archives and dependency packaging.</p></div>
+</div></div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><h2>Technology stack</h2><p class="muted">A lightweight serverless stack built around Python, AWS, GitHub, and Gemini.</p></div>
+<div class="stack">
+<span class="tag">Python 3.9+</span><span class="tag">AWS Lambda</span><span class="tag">Amazon API Gateway</span><span class="tag">Amazon SNS</span><span class="tag">Amazon S3</span><span class="tag">AWS CloudWatch</span><span class="tag">AWS IAM</span><span class="tag">AWS Secrets Manager</span><span class="tag">AWS CloudTrail</span><span class="tag">GitHub REST API</span><span class="tag">GitHub Webhooks</span><span class="tag">Google Gemini 2.5 Flash</span><span class="tag">Visual Studio Code</span>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="section-head"><h2>Implementation snapshot</h2><p class="muted">The Lambda handler ties together event parsing, GitHub diff retrieval, Gemini analysis, PR feedback, and SNS notification.</p></div>
+<div class="code"><pre>GitHub PR
+   ↓
+Webhook → API Gateway
+   ↓
+AWS Lambda
+   ├── Parse PR event
+   ├── Fetch diff from GitHub REST API
+   ├── Build structured review prompt
+   ├── Call Gemini 2.5 Flash
+   ├── Post AI review to GitHub
+   └── Publish completion event to SNS
+   ↓
+CloudWatch → logs & monitoring</pre></div>
+</div></section>
+
+<section><div class="wrap">
+<div class="card" style="padding:32px">
+<h2 style="margin-bottom:12px">What the system achieves</h2>
+<p class="muted">The completed system demonstrates an end-to-end AI automation pipeline for software development: a GitHub event becomes a serverless execution, the changed code is analyzed by an AI model, actionable feedback is generated, and the result is returned to the Pull Request with notification and monitoring around the workflow.</p>
+<div class="actions"><a class="btn primary" href="https://github.com/palakxcode/ai-CodeReviewer">View codebase ↗</a></div>
+</div></div></section>
+</main>
+
+<footer><div class="wrap">AI-Powered GitHub Pull Request Reviewer · AI-driven automation for modern DevOps workflows</div></footer>
+</body>
+</html>
